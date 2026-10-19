@@ -1,6 +1,6 @@
 # Automated LLM Red-Teaming & Robustness Framework
 
-[![CI](https://github.com/aatmangupta/llm-redteaming-framework/actions/workflows/ci.yml/badge.svg)](https://github.com/aatmangupta/llm-redteaming-framework/actions/workflows/ci.yml)
+[![CI](https://github.com/Aatman004/LLM-Red-Teaming-Robustness-Framework/actions/workflows/ci.yml/badge.svg)](https://github.com/Aatman004/LLM-Red-Teaming-Robustness-Framework/actions/workflows/ci.yml)
 [![Python 3.11+](https://img.shields.io/badge/python-3.11+-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![Pandas Analytics](https://img.shields.io/badge/analytics-Pandas%202.2-150458.svg)](https://pandas.pydata.org/)
@@ -69,8 +69,8 @@ This framework automates adversarial probing by combining:
 
 ```bash
 # Clone the repository
-git clone https://github.com/aatmangupta/llm-redteaming-framework.git
-cd llm-redteaming-framework
+git clone https://github.com/Aatman004/LLM-Red-Teaming-Robustness-Framework.git
+cd LLM-Red-Teaming-Robustness-Framework
 
 # Create virtual environment
 python -m venv .venv
