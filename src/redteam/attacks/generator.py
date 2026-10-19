@@ -1,6 +1,7 @@
 """Attack suite generator combining seeds with adversarial mutators."""
 
 from typing import List
+
 from redteam.attacks.mutators import (
     mutate_base64,
     mutate_hypothetical_fiction,
@@ -9,7 +10,6 @@ from redteam.attacks.mutators import (
     mutate_rot13,
 )
 from redteam.attacks.taxonomy import AttackCategory, AttackPayload, HarmDomain
-
 
 SEED_PROBES = [
     {

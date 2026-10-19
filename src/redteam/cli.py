@@ -1,10 +1,10 @@
 """Command Line Interface for LLM Red-Teaming & Robustness Framework."""
 
-from pathlib import Path
 from typing import Optional
+
+import typer
 from rich.console import Console
 from rich.table import Table
-import typer
 
 from redteam.analytics import RedTeamAnalytics
 from redteam.attacks.generator import generate_attack_suite
@@ -43,14 +43,22 @@ def get_target(target_type: str, model_name: Optional[str] = None):
 
 @app.command()
 def scan(
-    target: str = typer.Option("mock", "--target", "-t", help="Target: mock, mock_vulnerable, mock_overrefusing, cloud"),
-    model: Optional[str] = typer.Option(None, "--model", "-m", help="Target model identifier for cloud"),
-    output_dir: str = typer.Option("reports/latest_scan", "--output-dir", "-o", help="Directory for reports and logs"),
+    target: str = typer.Option(
+        "mock", "--target", "-t", help="Target: mock, mock_vulnerable, mock_overrefusing, cloud"
+    ),
+    model: Optional[str] = typer.Option(
+        None, "--model", "-m", help="Target model identifier for cloud"
+    ),
+    output_dir: str = typer.Option(
+        "reports/latest_scan", "--output-dir", "-o", help="Directory for reports and logs"
+    ),
 ):
     """Execute automated adversarial red-team campaign against target system."""
     target_model = get_target(target, model)
-    console.print(f"[bold cyan]Initiating Adversarial Red-Team Campaign[/bold cyan]")
-    console.print(f"Target: [bold white]{target_model.name}[/bold white] | Output: [white]{output_dir}[/white]\n")
+    console.print("[bold cyan]Initiating Adversarial Red-Team Campaign[/bold cyan]")
+    console.print(
+        f"Target: [bold white]{target_model.name}[/bold white] | Output: [white]{output_dir}[/white]\n"
+    )
 
     payloads = generate_attack_suite()
     console.print(f"Generated [yellow]{len(payloads)}[/yellow] adversarial & control payloads.")
@@ -65,16 +73,27 @@ def scan(
     analytics.export(output_dir)
 
     # Terminal summary table
-    table = Table(title="Red-Team Vulnerability Scorecard", show_header=True, header_style="bold red")
+    table = Table(
+        title="Red-Team Vulnerability Scorecard", show_header=True, header_style="bold red"
+    )
     table.add_column("Metric", style="cyan")
     table.add_column("Value", justify="right", style="bold white")
 
-    asr_color = "green" if summary["overall_asr"] < 0.2 else ("yellow" if summary["overall_asr"] < 0.5 else "bold red")
+    asr_color = (
+        "green"
+        if summary["overall_asr"] < 0.2
+        else ("yellow" if summary["overall_asr"] < 0.5 else "bold red")
+    )
     table.add_row("Total Probes", str(summary["total_probes"]))
     table.add_row("Attacks Delivered", str(summary["total_attacks"]))
     table.add_row("Adversarial Breaches", str(summary["breaches"]))
-    table.add_row("Overall Attack Success Rate (ASR)", f"[{asr_color}]{summary['overall_asr'] * 100:.1f}%[/{asr_color}]")
-    table.add_row("Over-Refusal Rate (False Positives)", f"{summary['over_refusal_rate'] * 100:.1f}%")
+    table.add_row(
+        "Overall Attack Success Rate (ASR)",
+        f"[{asr_color}]{summary['overall_asr'] * 100:.1f}%[/{asr_color}]",
+    )
+    table.add_row(
+        "Over-Refusal Rate (False Positives)", f"{summary['over_refusal_rate'] * 100:.1f}%"
+    )
 
     console.print(table)
 
@@ -88,12 +107,16 @@ def scan(
         cat_table.add_row(cat, str(data["count"]), f"{data['asr'] * 100:.1f}%")
 
     console.print(cat_table)
-    console.print(f"\n[bold green]Report & event log saved to:[/bold green] [white]{output_dir}[/white]")
+    console.print(
+        f"\n[bold green]Report & event log saved to:[/bold green] [white]{output_dir}[/white]"
+    )
 
 
 @app.command()
 def report(
-    log_file: str = typer.Option("reports/latest_scan/events.csv", "--log-file", "-l", help="Path to events CSV"),
+    log_file: str = typer.Option(
+        "reports/latest_scan/events.csv", "--log-file", "-l", help="Path to events CSV"
+    ),
 ):
     """Inspect and format previously logged red-team results."""
     analytics = RedTeamAnalytics.from_csv(log_file)
@@ -104,7 +127,9 @@ def report(
 @app.command()
 def mutate(
     prompt: str = typer.Argument(..., help="Prompt to mutate"),
-    technique: str = typer.Option("base64", "--technique", "-t", help="Technique: base64, rot13, dan, hypo, indirect"),
+    technique: str = typer.Option(
+        "base64", "--technique", "-t", help="Technique: base64, rot13, dan, hypo, indirect"
+    ),
 ):
     """Adversarially transform a seed prompt using a specific mutation technique."""
     t_clean = technique.lower()

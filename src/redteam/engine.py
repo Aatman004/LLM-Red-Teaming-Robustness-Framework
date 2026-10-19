@@ -1,8 +1,8 @@
 """Orchestrator executing red-team campaigns and logging structured probe events."""
 
 from datetime import datetime
-import time
 from typing import Any, Dict, List, Optional
+
 from redteam.attacks.taxonomy import AttackPayload
 from redteam.judges.rubric import SafetyJudge
 from redteam.models.protocol import TargetModel

@@ -2,6 +2,7 @@
 
 import base64
 import codecs
+
 from redteam.attacks.mutators import (
     mutate_base64,
     mutate_hypothetical_fiction,

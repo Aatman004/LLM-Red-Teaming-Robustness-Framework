@@ -1,11 +1,13 @@
 """Target model interface and response definitions."""
 
 from abc import ABC, abstractmethod
+
 from pydantic import BaseModel, Field
 
 
 class TargetResponse(BaseModel):
     """Response returned from a target model under red-team probing."""
+
     text: str = Field(description="Generated model response text")
     latency_seconds: float = Field(default=0.0, description="Response latency in seconds")
     tokens_generated: int = Field(default=0, description="Approximate count of tokens produced")

@@ -3,7 +3,9 @@
 import os
 import time
 from typing import Optional
+
 import httpx
+
 from redteam.models.protocol import TargetModel, TargetResponse
 
 
